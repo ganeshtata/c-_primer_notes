@@ -21,7 +21,7 @@ and 16 significant digits, respectively
  
 ### Exercise 2.1: What are the differences between int, long, long long, and short? Between an unsigned and a signed type? Between a float and a double?
 * The primary difference between int, long, and long long is the **size of the data** that each of these data types can hold. A _long_ is at least as large as an _int_, which means it might hold larger values than _int_. There is a similar relationship between _long_ and _long long_. 
-* An unsigned type holds values ranging from 0 to its size. A signed type holds both positive and negative values, and thus the range is equally divided between signed and unsigned values.
+* An unsigned type holds values ranging from 0 to its size. A signed type holds both positive and negative values, and thus the range is equally divided between positive and negative values. For example, an _unsigned char_ can store values from 0 through 255. But, a _signed char_ can store values from -128 through 127. ( In many architectures, the first bit is reserved as the sign bit, which indicates the sign of the data )
 * Both *float* and *double* are used for storing **floating point** values. Float yields upto 7 significant digits, whereas double yields upto 16. That is, double is more precise.
 
 ### Exercise 2.2: To calculate a mortgage payment, what types would you use for the rate, principal, and payment? Explain why you selected each type.
