@@ -1,2 +1,2 @@
-# c-_primer_notes
+# cplusplus_primer_notes
 Notes from C++ Primer
