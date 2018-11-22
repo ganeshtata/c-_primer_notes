@@ -5,9 +5,6 @@
 Ans. 'a' - Character type
 
 
-
-
-
 ## Exercise 2.11: Explain whether each of the following is a declaration or a definition:
 (a) extern int ix = 1024;
 Ans. Definition
@@ -17,10 +14,10 @@ Ans. Definition
 Ans. Declaration
 
 ### Important notes - 
-Declaration - Specifies type and name of a variable
-Definition - Allocates storage, may provide the variable with an initial value
+* Declaration - Specifies type and name of a variable
+* Definition - Allocates storage, may provide the variable with an initial value
 
-Scope Resolution operator  - The global scope has no
+* Scope Resolution operator  - The global scope has no
 name. Hence, when the scope operator has an empty left-hand side, it is a request to
 fetch the name on the right-hand side from the global scope.
 
@@ -50,11 +47,13 @@ Ans.
 (ii)Output - 100 45. The `i` is taken from the outer scope.
 
 ### Important notes - 
-Reference - Once initialized, a reference remains
+* Reference - Once initialized, a reference remains
 bound to its initial object. There is no way to rebind a reference to refer to a different
 object. Because there is no way to rebind a reference, references must be initialized.
-Because references are not objects, we may not define a reference to a reference.
-A reference may be bound to an object - Not to a literal or the result of a general expression.
+
+* Because references are not objects, we may not define a reference to a reference.
+
+* A reference may be bound to an object - Not to a literal or the result of a general expression.
 
 #Exercises Section 2.3.1
 ## Exercise 2.15: Which of the following definitions, if any, are invalid? Why?
@@ -91,25 +90,26 @@ std::cout << i << " " << ri << std::endl;
 Ans. 10 10
 
 
+### Important notes
 
-It is an error to copy or otherwise try to access the value of an invalid pointer. As
+> It is an error to copy or otherwise try to access the value of an invalid pointer. As
 when we use an uninitialized variable, this error is one that the compiler is unlikely to
 detect. The result of accessing an invalid pointer is undefined. Therefore, we must
 always know whether a given pointer is valid.
 
  
-Dereferencing a pointer yields the object to which the pointer points. We can assign to
+* Dereferencing a pointer yields the object to which the pointer points. We can assign to
 that object by assigning to the result of the dereference.
 
-If there is no object to bind to a pointer, then
+* If there is no object to bind to a pointer, then
 initialize the pointer to nullptr or zero. That way, the program can detect
 that the pointer does not point to an object.
 
-It can be hard to keep straight whether an assignment changes the pointer or the
+* It can be hard to keep straight whether an assignment changes the pointer or the
 object to which the pointer points. The important thing to keep in mind is that
 assignment changes its left-hand operand.
 
-The type void* is a special pointer type that can hold the address of any object.
+* The type void* is a special pointer type that can hold the address of any object.
 
  
 # Exercises Section 2.3.2
@@ -201,7 +201,7 @@ const int sz = cnt; // Legal
 // Legal. i2 is being initialized with i, and thus only the value of i is being copied to i2. r is a const integer reference, and thus, i's value CANNOT be changed THROUGH r.
 ```
 
-Exercise 2.28: Explain the following definitions. Identify any that are illegal.
+## Exercise 2.28: Explain the following definitions. Identify any that are illegal.
 ```
 (a) int i, *const cp;
 // i is an integer. cp is a constant pointer to integer. cp's initialization is illegal since cp needs to be explicitly initialized during its definition.
@@ -213,8 +213,10 @@ Exercise 2.28: Explain the following definitions. Identify any that are illegal.
 // p3 is a constant pointer to constant integer. Illegal initialization since p3 needs to initialized with the address of an integer object / variable.
 (e) const int *p;
 // p is a pointer to integer constant. Legal initialization.
-Exercise 2.29: Using the variables in the previous exercise, which of the
-following assignments are legal? Explain why.
+```
+
+## Exercise 2.29: Using the variables in the previous exercise, which of the following assignments are legal? Explain why.
+```
 (a) i = ic;
 // Valid. Value of ic is being assigned to i. Modifying i does NOT modify ic.
 (b) p1 = p3;
@@ -228,4 +230,38 @@ following assignments are legal? Explain why.
 
 (f) ic = *p3;
 // Illegal. ic is a constant integer, and thus its value cannot be modified. 
+```
+
+## Exercise 2.30: For each of the following declarations indicate whether the object being declared has top-level or low-level const.
+```
+const int v2 = 0;  
+// Low-level const
+
+int v1 = v2;  
+// No const - v1's value can be modified
+
+int *p1 = &v1, &r1 = v1;
+ // No const - p1 is a pointer to integer, and r1 is an integer reference. Both of them are not const.
+
+const int *p2 = &v2, *const p3 = &i, &r2 = v2; 
+// p2 is a pointer to integer constant - Hence it has top-level const. p3 is a constant pointer to constant integer. Hence it has both top-level and low-level const. // r2 is a constant integer reference, It has a  low-level const
+ 
+```
+
+## Exercise 2.31: Given the declarations in the previous exercise determine whether the following assignments are legal. Explain how the top-level or low-level const applies in each case.
+```
+r1 = v2; 
+// r1 is a reference to integer. Thus, r1 has to be a const reference for this assignment to work since v2 has a low-level const ( Low-level const should match). Illegeal
+
+p1 = p2; 
+// Low-level const does not match. IF this assignment was legal, we would be able to modify value pointed by p2, using p1, since both p1 and p2 would then point to the same integer. But p2 should NOT allow this since it is a pointer to const integer. Illegal.
+
+p2 = p1;
+// p1 has no low-level const. Hence, this is legal. p2 and p1 point to the same integer now, but since p1 doesn't have any low level const, this is legal.
+
+p1 = p3;
+// Illegal. Same reason as p1 = p2
+
+p2 = p3;
+// Legal. Both have low level const. Because of this assignment, p2 and p3 would point to the same integer. But since both have low level const, p2 CANNOT change the value that it points to ( Note - This means the value at the address stored in p2, p3 cannot be modified THROUGH p2, p3 )
 ```
