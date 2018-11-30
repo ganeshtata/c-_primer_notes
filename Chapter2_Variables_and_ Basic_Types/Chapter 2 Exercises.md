@@ -57,6 +57,7 @@ object. Because there is no way to rebind a reference, references must be initia
 
 #Exercises Section 2.3.1
 ## Exercise 2.15: Which of the following definitions, if any, are invalid? Why?
+```
 (a) int ival = 1.01;
 Ans. Valid
 (b) int &rval1 = 1.01;
@@ -65,11 +66,12 @@ Ans. Invalid - Can't initialize reference with constant ( Literal can't be used 
 Ans. Valid
 (d) int &rval3;
 Ans. Invalid. Needs a variable as an initializer
+```
 
 ## Exercise 2.16: Which, if any, of the following assignments are invalid? If they are valid, explain what they do.
  
 Click here to view code image
- 
+ ```
 int i = 0, &r1 = i; double d = 0, &r2 = d;
  
 (a) r2 = 3.14159; # Valid, d changes to 3.14
@@ -78,21 +80,21 @@ int i = 0, &r1 = i; double d = 0, &r2 = d;
  
 (c) i = r2; # d changes to 0
 (d) r1 = d; # r1, i are 0
-
+```
 ## Exercise 2.17: What does the following code print?
  
 Click here to view code image
- 
+```
 int i, &ri = i;
 i = 5; ri = 10;
 std::cout << i << " " << ri << std::endl;
 
-Ans. 10 10
-
+//Ans. 10 10
+```
 
 ### Important notes
 
-> It is an error to copy or otherwise try to access the value of an invalid pointer. As
+* It is an error to copy or otherwise try to access the value of an invalid pointer. As
 when we use an uninitialized variable, this error is one that the compiler is unlikely to
 detect. The result of accessing an invalid pointer is undefined. Therefore, we must
 always know whether a given pointer is valid.
@@ -134,15 +136,19 @@ int *p1 = &i;
 Ans. i is 1764
 
 ## Exercise 2.21: Explain each of the following definitions. Indicate whether any are illegal and, if so, why.
+```
 int i = 0;
 
 (a) double* dp = &i; # Invalid. Pointer to double cannot be initialized with integer address.
 (b) int *ip = i; # Invalid. Pointer to integer cannot be initialized with integer. Need address
 (c) int *p = &i; # Valid
+```
 
 ## Exercise 2.22: Assuming p is a pointer to int, explain the following code:
+```
 if (p) // True, if p is not a null pointer
 if (*p) // True, if the value pointed by p is non-zero
+```
 
 ## Exercise 2.23: Given a pointer p, can you determine whether p points to a valid object? If so, how? If not, why not?
 Ans. No. It may so happen that the object to which the pointer points to, no longer exists, and thus, even though the pointer points to a address in memory, the value in that location is undefined
@@ -264,4 +270,35 @@ p1 = p3;
 
 p2 = p3;
 // Legal. Both have low level const. Because of this assignment, p2 and p3 would point to the same integer. But since both have low level const, p2 CANNOT change the value that it points to ( Note - This means the value at the address stored in p2, p3 cannot be modified THROUGH p2, p3 )
+```
+
+## Exercise 2.33: Using the variable definitions from this section, determine what happens in each of these assignments:
+```
+a = 42;
+// a is an integer ( As deduced by auto ). Thus, a is assigned 42  
+b = 42;   
+// b is an integer ( As deduced by auto ). Thus, b is assigned 42
+c = 42;
+// c is an integer ( As deduced by auto ). Thus, c is assigned 42
+d = 42;    
+// d is of type int *, and hence an integer value cannot be assigned.
+e = 42;   
+// d is of type const int *, and hence an integer value cannot be assigned.
+g = 42;
+// g is a constant integer reference, and hence its value cannot be changed.
+```
+
+## Exercise 2.35: Determine the types deduced in each of the following definitions. Once you’ve figured out the types, write a program to see whether you were correct.
+
+```
+const int i = 42;
+// i is a constant integer
+auto j = i; 
+// j is an integer
+const auto &k = i;
+// k is an const integer reference 
+auto *p = &i;
+// p is a pointer to const integer ( const int *)
+const auto j2 = i, &k2 = i;
+// j2 is a const integer, k2 is a const integer reference
 ```
